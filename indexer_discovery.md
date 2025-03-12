@@ -48,6 +48,7 @@ useACK=true
 defaultGroup = group1
 ```
 🔹 **manager_uri** points to the manager node.
+
 🔹 **useACK** ensures data integrity using indexer acknowledgment.
 
 ---
