@@ -31,9 +31,8 @@ Create an **app** for forwarders on the Deployment Server:
 ```bash
 cd /opt/splunk/etc/deployment-apps/
 mkdir -p /opt/splunk/etc/deployment-apps/atlgsdach_all_indexers_discovery_base/local
+vi outputs.conf
 ```
-
-Edit `outputs.conf` on each forwarder:
 ```ini
 [indexer_discovery:manager1]
 pass4SymmKey = splunk1234
@@ -85,6 +84,8 @@ On the **manager node**, create an app and define `indexes.conf`:
 mkdir -p /opt/splunk/etc/manager-apps/atlsdach_all_indexers_base/local
 cd /opt/splunk/etc/manager-apps/atlsdach_all_indexers_base/local
 vi indexes.conf
+
+mv atlsdach_all_indexers_base/ atlgsdach_all_indexes_base/
 ```
 
 ### 🔹 Define Storage Volumes and Create Indexes for Different Data Types
@@ -133,6 +134,9 @@ frozenTimePeriodInSecs = 7776000
 maxDataSize = auto
 maxTotalDataSizeMB = 102400
 repFactor = auto
+```
+```bash
+./splunk apply cluster-bundle
 ```
 >[!NOTE]
 > Apply the cluster bundle anytime you create apps under manager-apps in the Cluster Master to push the chnages to the indexers
@@ -290,3 +294,5 @@ mkdir -p /opt/splunk/etc/deployment-apps/all_base_inputs_linux/local
 mkdir -p /opt/splunk/etc/deployment-apps/all_base_inputs_windows/local
 ```
 Deploy these apps to forwarders using **Deployment Server**.
+
+## How to Disable Search Head, License Master, Monitoring Console, Search Head Deployer and Deployment Server and also discover indexers and foward data to them in Clustering
