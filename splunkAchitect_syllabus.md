@@ -18,7 +18,7 @@ This class covers the installation, configuration, and setup of a Splunk deploym
 
 ### ✅ C. Install the Master Node and Indexers
 - Install and configure the **Cluster Master** to manage the indexer cluster.
-- Set up **three Indexers** for storing and replicating data.
+- Set up **three Indexers** as peer nodes for storing and replicating data.
 
 ### ✅ D. Install the Search Head
 - Install a **Search Head** to enable distributed searching across the indexers.
@@ -85,4 +85,10 @@ This class covers the installation, configuration, and setup of a Splunk deploym
 
 # 🏗️ Splunk Architect Class (Search Head Clustering)
 
+
+# 🏗️ Syslog
+
+# 🏗️ Data Filtering using Props.conf and transform.conf
+
+# 🏗️ Splunk Cloud
 

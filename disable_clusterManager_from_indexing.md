@@ -1,4 +1,4 @@
-## ✅ Full Setup to Disable Indexing & Forward Logs Using Indexer Discovery
+## ✅ Full Setup to Disable Indexing (Cluster Manager) & Forward Logs Using Indexer Discovery
 
 This guide ensures:
 ✔ **Indexer Discovery** is enabled on the **Cluster Manager**  

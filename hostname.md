@@ -2,6 +2,7 @@
 ## Change Hostname Permanently
 ```sh
 sudo hostnamectl set-hostname indexer_01
+Rename-Computer -NewName "windows-server" -Force -Restart
 ```
 To verify, run:
 ```sh
