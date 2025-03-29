@@ -27,7 +27,13 @@ splunk edit cluster-config -mode manager -multisite true \
 -site site1 \
 -site_replication_factor origin:2,total:3 \
 -site_search_factor origin:1,total:2
-
+```
+With the Secret Key
+```sh
+splunk edit cluster-config -mode manager -multisite true -available_sites site1,site2 -site site1 -site_replication_factor origin:2,total:3 -site_search_factor origin:1,total:2 -secret your_key
+```
+[Read More](https://docs.splunk.com/Documentation/Splunk/9.4.0/Indexer/MultisiteCLI)
+```sh
 splunk restart
 ```
 
@@ -91,34 +97,18 @@ splunk restart
 
 **`splunk edit cluster-config -site site1; splunk restart`**: This command can only be run on existing peer nodes that are already part of the cluster. It is typically used for making minor adjustments, such as assigning a site in a multisite configuration.
 
-### ✅ **4. Add New Peer Nodes (Optional)**
-
-To add new peer nodes, use the following command:
-🚀 Example with pass4SymmKey
+#### 🔧 Command
 ```sh
-splunk edit cluster-config -mode peer \
--site site2 \
--manager_uri https://<manager_ip>:8089 \
--replication_port 9887 \
--pass4SymmKey your_secret_key
-
-splunk restart
+splunk edit cluster-config -mode peer -site site2 -manager_uri https://172.31.92.30:8089 -replication_port 9887 -secret splunk123
 ```
-Note: Ensure the pass4SymmKey matches the one on the manager node (server.conf).
+```bash
+./splunk restart
+```
 
 🔎 **Explanation:**
 - `-mode peer`: Configures the node as a peer.
 - `-manager_uri`: Specifies the manager node.
 - `-replication_port`: Port used for data replication.
-#### Put it in Server.conf
-```sh
-[clustering]
-mode = peer
-site = site2
-manager_uri = https://<manager_ip>:8089
-replication_port = 9887
-pass4SymmKey = your_secret_key
-```
 
 **splunk edit cluster-config -mode peer -site site1 -manager_uri https://<manager_ip>:8089 -replication_port 9887 -pass4SymmKey your_secret_key; splunk restart**: This command is used when adding a new indexer (peer node) to the cluster. It provides all the essential details for the manager node to register the peer. It’s necessary if the peer isn’t already a part of the cluster.
 
@@ -129,13 +119,20 @@ pass4SymmKey = your_secret_key
 For each search head, run:
 
 ```bash
-splunk edit cluster-manager https://<manager_ip>:8089 -site site1
+splunk edit cluster-manager https://172.31.92.30:8089 -site site1
+```
+```sh
+splunk edit cluster-config -mode searchhead -site site1 -manager_uri https://10.160.31.200:8089 -secret your_key
+
+splunk edit cluster-config -mode searchhead -site site1 -manager_uri https://172.31.92.30:8089 -secret 20260918
+
+splunk edit cluster-config -mode searchhead -site site2 -manager_uri https://172.31.92.30:8089 -secret 20260918
 ```
 
 🔎 **Explanation:**
 - This associates the search head with the manager node and the specified site.
 
-**For search head clusters:** Follow the guide on [Integrating with a Multisite Indexer Cluster](https://docs.splunk.com).
+**For search head clusters:** Follow the guide on [Integrating with a Multisite Indexer Cluster](https://docs.splunk.com/Documentation/Splunk/9.4.1/Indexer/Multisitearchitecture#Multisite_searching_and_search_affinity).
 
 ---
 

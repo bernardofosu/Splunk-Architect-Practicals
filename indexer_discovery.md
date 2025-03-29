@@ -31,7 +31,7 @@ Create an **app** for forwarders on the Deployment Server:
 ```bash
 mkdir -p /opt/splunk/etc/deployment-apps/atlgsdach_all_indexers_discovery_base/local
 ```
-
+All the apps in the app directory will this configuration and no need for outputs.conf to avoid conflicts only inputs.conf to monitor path
 Edit `outputs.conf` on each forwarder:
 ```ini
 [indexer_discovery:manager1]

@@ -35,7 +35,20 @@ vi outputs.conf
 ```
 ```ini
 [indexer_discovery:manager1]
-pass4SymmKey = splunk1234
+pass4SymmKey = 20260918
+manager_uri = https://172.31.92.30:8089
+
+[tcpout:group1]
+autoLBFrequency = 30
+forceTimebasedAutoLB = true
+indexerDiscovery = manager1
+useACK=true
+
+[tcpout]
+defaultGroup = group1
+
+[indexer_discovery:manager1]
+pass4SymmKey = 20260918
 manager_uri = https://172.31.92.30:8089
 
 [tcpout:group1]

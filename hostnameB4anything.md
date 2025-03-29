@@ -1,12 +1,20 @@
 
-## Change Hostname Permanently
+## Change Hostname Permanently (Immeditiately after Installation)
 ```sh
 sudo hostnamectl set-hostname indexer_01
 Rename-Computer -NewName "windows-server" -Force -Restart
+
+sudo hostnamectl set-hostname Search_Head_Deployer
 ```
 To verify, run:
 ```sh
 hostname
+```
+Change on the splunk server.conf
+```sh
+[general]
+serverName = Search_Head_Deployer
+pass4SymmKey = $7$26KwSrCIHhUFa3ZN0V/tkHNe1Ze3hhcOgS8GC1LXdH5Z1NKueQ1qig==
 ```
 
 ### If it still shows ip-172-31-93-40, try:

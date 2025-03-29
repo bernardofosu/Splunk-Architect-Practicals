@@ -102,14 +102,73 @@ mkdir -p /opt/splunkforwarder/etc/deployment-apps/all_fwd_outputs/local
 
 ### ✏️ **Add Configuration**
 Create an `outputs.conf` inside the app:
+# 🚀 Using Indexer Discovery in Splunk Universal Forwarder
 
+If you are using **indexer discovery**, then you should **not manually specify** the indexers' IPs in the `outputs.conf` file. Instead, the forwarders will dynamically discover available indexers from the **Cluster Master** (Search Head or Indexer Manager).
+
+---
+
+## ✅ Correct `outputs.conf` for Indexer Discovery
+
+Replace your current `[tcpout]` configuration with this:
 ```ini
 [tcpout]
-defaultGroup = default-autolb-group
+defaultGroup = indexer_discovery
 
-[tcpout:default-autolb-group]
-server = 172.31.83.124:9997,172.31.91.156:9997,172.31.80.100:9997
+[tcpout:indexer_discovery]
+indexerDiscovery = my_cluster_manager
+useACK = true
+forwardedindex.filter.disable = true   # ✅ Allows _internal and other filtered indexes to be forwarded if needed
+pass4SymmKey = splunk123               # ✅ Matches what should be in CM's [indexer_discovery] stanza
+indexAndForward = false               # ✅ Typical for UF, disables local indexing
+
+[indexer_discovery:my_cluster_manager]
+manager_uri = https://172.31.92.30:8089
 ```
+
+
+✅ This should list the discovered indexers instead of manually configured IPs.
+```sh
+splunk list forward-server
+```
+if you're using manual indexer configuration (i.e., specifying indexer IPs directly in outputs.conf), then splunk list forward-server will still work, but it will only list the manually configured indexers.
+
+However, if you're using Indexer Discovery, the command will show the discovered indexers dynamically retrieved from the Cluster Manager (Indexer Master).
+
+## 🚀 Explanation:
+
+- **No need to manually specify indexers' IPs.** The forwarder will dynamically get the list of active indexers from the **Cluster Manager**.
+- **`indexerDiscovery = my_cluster_manager`** → This tells the forwarder to use indexer discovery.
+- **`master_uri = https://<CLUSTER_MANAGER_IP>:8089`** → Replace `<CLUSTER_MANAGER_IP>` with the **Cluster Manager (Search Head or Indexer Master) IP**.
+- **`useACK = true`** (optional) → Ensures reliability by waiting for acknowledgment from the indexer.
+
+---
+
+## 📌 Steps to Apply the Configuration
+
+1. **Edit `outputs.conf`** on the Universal Forwarder.
+2. **Restart Splunk Forwarder** for changes to take effect:
+   ```bash
+   splunk restart
+   ```
+3. **Verify Indexer Discovery:**
+   ```bash
+   splunk list forward-server
+   ```
+   This should show the discovered indexers.
+
+---
+
+## ✅ Benefits of Indexer Discovery
+
+- **No manual IP management** → If an indexer fails or changes, the forwarder automatically adapts.
+- **Scalability** → New indexers can be added without updating forwarder configs.
+- **Load balancing** → Splunk distributes data efficiently.
+
+---
+
+By using **indexer discovery**, you ensure that your Splunk **Universal Forwarders** can dynamically find and send data to the most available indexers without requiring manual configuration updates! 🚀
+
 
 ### 🔄 **Reload Deployment Server**
 Reload to push the new configuration to all forwarders:
