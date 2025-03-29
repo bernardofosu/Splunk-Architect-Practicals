@@ -77,8 +77,8 @@ splunk enable boot-start
 ### 4️⃣ Initialize Cluster Members
 
 Run the following command on each search head:
-
-```bash
+To avoid conflict we are using port 9889 
+```powershell
 splunk init shcluster-config -auth <username>:<password> \
     -mgmt_uri <URI>:<management_port> \
     -replication_port <replication_port> \
@@ -86,6 +86,14 @@ splunk init shcluster-config -auth <username>:<password> \
     -conf_deploy_fetch_url <URL>:<management_port> \
     -secret <security_key> \
     -shcluster_label <label>
+
+splunk init shcluster-config -auth admin:splunk123 \
+    -mgmt_uri https://172.31.28.177:8089 \
+    -replication_port 9889 \
+    -replication_factor 3 \
+    -conf_deploy_fetch_url https://172.31.17.90:8089 \
+    -secret 20260918 \
+    -shcluster_label shcluster1
 ```
 
 Then restart Splunk:
@@ -100,7 +108,14 @@ splunk restart
 Select one instance and run:
 
 ```bash
-splunk bootstrap shcluster-captain -servers_list "<URI>:<management_port>,<URI>:<management_port>,..." -auth <username>:<password>
+splunk bootstrap shcluster-captain \
+-servers_list "https://<search_head_1>:8089,https://<search_head_2>:8089,https://<search_head_3>:8089" \
+-auth admin:changeme
+```
+```sh
+splunk bootstrap shcluster-captain \
+-servers_list "https://172.31.10.101:8089,https://172.31.10.102:8089,https://172.31.10.103:8089" \
+-auth admin:MySecurePass123
 ```
 
 ⚠️ The `-servers_list` must match the `-mgmt_uri` values set during initialization!
@@ -125,7 +140,15 @@ splunk bootstrap shcluster-captain -servers_list "<URI>:<management_port>,<URI>:
 Run the following command from any cluster member:
 
 ```bash
-splunk show shcluster-status -auth <username>:<password>
+splunk show shcluster-status -auth admin:changeme
+./splunk show shcluster-status -auth admin:splunk123
+```
+```sh
+ubuntu@search-head-02-site1:/opt/splunk/bin$ ./splunk show shcluster-status -auth admin:20260918
+Please run 'splunk ftr' as boot-start user
+```
+```sh
+sudo su - splunk
 ```
 
 For KV Store status:

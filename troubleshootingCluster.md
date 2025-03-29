@@ -353,3 +353,106 @@ And I'll give you an enterprise-level setup! 🔷
 
 
 
+🔴 Issue:
+```sh
+splunk@clustermanager:/opt/splunk/bin$ cat /opt/splunk/var/log/splunk/splunkd.log | grep Detention
+03-28-2025 23:56:34.148 +0000 INFO  CMPeer [1253 CMMasterServiceThread] - peer=44D63DC8-AC53-40E6-AD72-00C75DD53EB9 peer_name=site1_indexer_02 transitioning from=Up to=AutomaticDetention reason="peer is blocked"
+03-28-2025 23:56:57.652 +0000 INFO  CMPeer [1253 CMMasterServiceThread] - peer=6EE2E225-2EAE-4F21-8DA6-F773BAA8653E peer_name=site1_ndexer_03 transitioning from=Up to=AutomaticDetention reason="peer is blocked"
+03-28-2025 23:57:26.653 +0000 INFO  CMPeer [1253 CMMasterServiceThread] - 
+```
+```sh
+The index processor has paused data flow. 
+Current free disk space on partition '/' has fallen to 4218MB, below the minimum of 5000MB.
+
+Search peer site1_ndexer_03 has the following message: The index processor has paused data flow. Current free disk space on partition '/' has fallen to 4218MB, below the minimum of 5000MB. Data writes to index path '/opt/splunk/var/lib/splunk/audit/db'cannot safely proceed. Increase free disk space on partition '/' by 
+```
+Splunk auto-protects itself when disk space is below 5 GB by entering a "paused" state (it will not index or replicate data) → which also causes detention in cluster status.
+```sh
+df -h
+```
+⚠ Notes:
+
+    The detention here is not caused by pass4SymmKey for site1_indexer_03 but by low disk space.
+
+    Still, you should double-check all peers for both:
+
+        Matching pass4SymmKey
+
+        Enough disk space
+
+# ✔️ Steps to Increase EBS Volume of an EC2 Instance
+
+## Step 1: Go to EC2 Console
+
+🔹 **Navigate to EC2** → **Volumes**
+
+🔹 **Find the volume** attached to your indexer (e.g., `/dev/xvda`)
+
+🔹 **Right-click** → **Modify Volume**
+
+---
+
+## Step 2: Set New Size
+
+🔹 Enter a **larger size** like **50 GB** or **100 GB** (up to you)
+
+🔹 Click **Modify** → **Confirm**
+
+---
+
+## Step 3: Expand Partition Inside the Instance (VERY IMPORTANT)
+
+After modifying the EBS volume, go back to the instance and run:
+
+```bash
+# Check disk name (usually xvda)
+lsblk
+
+# Grow the partition
+sudo growpart /dev/xvda 1
+
+# Resize filesystem
+sudo resize2fs /dev/xvda1
+
+# Check disk again
+df -h
+```
+
+✅ **You will now see your disk as 50GB or more**, and Splunk will exit detention automatically after restart or timeout.
+
+---
+
+## ✅ Notes:
+
+✔️ **Your data will not be lost.**
+
+✔️ **You do not need to stop the EC2 instance.**
+
+✔️ **You do not need to change instance type** unless you want more CPU/RAM.
+
+✔️ **This is 100% safe** if you only resize EBS. 🚀
+
+
+The real problem is likely Splunk buckets and internal Splunk data.
+
+Let's check the big consumers under /opt/splunk/var/lib/splunk/:
+🔄 Run this:
+```sh
+sudo du -sh /opt/splunk/var/lib/splunk/*
+```
+
+✅ Step-by-Step Targeted Check:
+
+From the Cluster Manager (assuming CM is also in Site1):
+
+ping 172.31.83.124
+ping 172.31.91.156
+ping 172.31.80.100
+
+nc -vz 172.31.83.124 8089
+nc -vz 172.31.91.156 8089
+nc -vz 172.31.80.100 8089
+
+sudo vi /opt/splunk/etc/system/local/server.conf
+
+cat /opt/splunk/etc/system/local/server.conf | grep manager_uri
