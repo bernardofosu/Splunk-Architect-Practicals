@@ -124,9 +124,9 @@ splunk edit cluster-manager https://172.31.92.30:8089 -site site1
 ```sh
 splunk edit cluster-config -mode searchhead -site site1 -manager_uri https://10.160.31.200:8089 -secret your_key
 
-splunk edit cluster-config -mode searchhead -site site1 -manager_uri https://172.31.92.30:8089 -secret 20260918
+splunk edit cluster-config -mode searchhead -site site1 -manager_uri https://172.31.92.30:8089 -secret splunk123
 
-splunk edit cluster-config -mode searchhead -site site2 -manager_uri https://172.31.92.30:8089 -secret 20260918
+splunk edit cluster-config -mode searchhead -site site2 -manager_uri https://172.31.92.30:8089 -secret splunk1233
 ```
 
 🔎 **Explanation:**
@@ -250,3 +250,48 @@ Need more details? Refer to the [Multisite Cluster Configuration Guide](https://
 
 4 site cluster,  
 **site_replication_factor = origin:2, site1:1, site2:2, site3:3, total:8**  
+
+### On the Manager Node
+```ini
+[general]
+serverName = cluster_manager
+pass4SymmKey = $7$OIX/gHad3C1xSJMJOitcqluuzCNDjFpxWIMPwOgTp2dPV4ent8SXzQ==
+site = site1
+
+[clustering]
+cluster_label = Cluster_01
+mode = manager
+pass4SymmKey = $7$PWRFmWEthDEpzVA6xZv1ETS1UR6IRY+jPZWo7zhgJNYFztfM/EF/dQ==
+replication_factor = 2
+constrain_singlesite_buckets = false
+available_sites = site1,site2
+multisite = true
+site_replication_factor = origin:2,total:3
+site_search_factor = origin:1,total:2
+maintenance_mode = false
+rebalance_threshold = 0.9
+
+[indexer_discovery]
+pass4SymmKey = $7$Fk3j6Y5OhzjfFEzXDW3AjhC5TP0kcOshkRbFCNkVz1ojGjWTyLE3Mw==
+indexerWeightByDiskCapacity = true
+
+[license]
+manager_uri = https://172.31.95.252:8089
+```
+
+```ini
+[general]
+serverName = site1_indexer_02
+pass4SymmKey = $7$/gYoN1Ajn9JwpJjAHo9wgH0G/q+udbxGI60vpCa3KiewcSLZRxavWg==
+site = site1
+
+[replication_port://9887]
+
+[clustering]
+manager_uri = https://172.31.92.30:8089
+mode = peer
+pass4SymmKey = $7$MDGnXM/sA3l6CPsTx/4HdI3NeepFn5shh6beQqjvRsWtsV1eNpNyvA==
+
+[license]
+manager_uri = self
+```
