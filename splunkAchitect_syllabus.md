@@ -145,6 +145,18 @@ For more details on hostname configuration:
   
 ### 🔥 Syslog
 
+```sh
+cat << EOF >> ~/.zprofile
+# Add Visual Studio Code (code)
+export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+EOF
+```
+
+>[!NOTE]
+>If you still have the old code alias in your .bash_profile (or equivalent) from an early VS Code version, remove it and replace it by running the Shell Command: Install 'code' command in PATH command.
+
+[Download and install Visual Studio Code](https://code.visualstudio.com/docs/setup/mac#_install-vs-code-on-macos)
+
 <!-- ## 🔥Splunk with Ansible for Configuration Automation
 
 ## 🔥 Data Filtering using Props.conf and transform.conf
