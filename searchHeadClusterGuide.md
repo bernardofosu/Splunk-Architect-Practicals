@@ -164,3 +164,47 @@ If you want, I can also show you:
 - 🔍 How to check which member is the **captain**.
 - ✅ How to verify if the **apps were distributed properly**.
 - 🗂️ Best-practice **folder structures** for SHC deployments.
+
+
+# 🖥️ How to Install Windows & Linux Add-ons on Splunk Search Head Using Splunk Web 🌐
+
+## 🔹 Prerequisites
+
+✅ Ensure you have administrative access to Splunk Web.  
+✅ Download the Splunk Add-ons for Windows and Linux from Splunkbase.  
+✅ Your Splunk Search Head should be up and running.  
+
+## 🔹 Step-by-Step Guide
+
+### 1️⃣ Log in to Splunk Web
+
+🔹 Open your web browser and go to your Splunk instance:  
+👉 `http://<splunk-server-ip>:8000`  
+🔹 Enter your admin username and password.  
+
+### 2️⃣ Navigate to the App Management Page
+
+🔹 Click on **Apps** in the top-left corner.  
+🔹 Select **Manage Apps** from the dropdown menu.  
+
+### 3️⃣ Upload the Add-on File
+
+🔹 Click on **Install App from File** 📂.  
+🔹 Click **Choose File** and select the Windows Add-on (`TA-windows.tgz`) or Linux Add-on (`TA-nix.tgz`) that you downloaded.  
+🔹 Click **Upload** to install the add-on.  
+
+### 4️⃣ Restart Splunk (If Required) 🔄
+
+🔹 After installation, Splunk may prompt you to restart.  
+🔹 Click **Restart Splunk** to apply the changes.  
+
+### 5️⃣ Verify the Add-on Installation ✅
+
+🔹 Go to **Apps > Manage Apps** and check if the Splunk Add-on for Windows/Linux appears in the list.  
+🔹 Click **Launch App** to configure data inputs if needed.  
+
+## 🎯 Conclusion
+
+You have successfully installed the Splunk Add-ons for Windows and Linux using Splunk Web! 🚀 Now, you can configure data collection and start monitoring your Windows and Linux environments.  
+
+🔹 Need more help? Check out **[Splunk Documentation](https://docs.splunk.com/)** for detailed configurations.  

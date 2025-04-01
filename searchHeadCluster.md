@@ -347,3 +347,28 @@ For critical environments:
 
 Reply with **yes** and I will make it like a Splunk Architect's private playbook. 🚀
 
+```ini
+[general]
+serverName = search_head_02_site1
+pass4SymmKey = $7$Sw89jkbsIOJNDOYyR/REVIPbnSyIOHMCX9YWWLD4zduD2jtxJgjWKw==
+site = site1
+
+[clustering]
+manager_uri = https://172.31.92.30:8089
+mode = searchhead
+multisite = true
+pass4SymmKey = $7$CVqd85WD2OLS0v7Ku3xxwRCCdLMzylbXYYyzwFgXBcNMrb2m3dkPrw==
+
+[replication_port://9889]
+
+[shclustering]
+conf_deploy_fetch_url = https://172.31.17.90:8089
+disabled = 0
+mgmt_uri = https://172.31.24.196:8089
+pass4SymmKey = $7$bAnKSGQyVvfdHQB28JY/JnFmwL8C4o2m/m1NVlisTlR+rSyy3CCKVg==
+shcluster_label = shcluster1
+id = 4B315066-63BC-469F-B0DC-0270319CF886
+
+[license]
+manager_uri = https://172.31.95.252:8089
+```

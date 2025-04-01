@@ -13,7 +13,7 @@ indexAndForward = false
 server = 172.31.83.124:9997,172.31.91.156:9997,172.31.80.100:9997
 ```
 
-## 📦 **OS Logs Configuration**
+## 📦 **OS Logs Configuration From Windows and Linux Server**
 For the Linux and Windows App outputs.conf on the DS
 ### 🪟 Windows Logs
 

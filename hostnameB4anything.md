@@ -4,7 +4,7 @@
 sudo hostnamectl set-hostname indexer_01
 Rename-Computer -NewName "windows-server" -Force -Restart
 
-sudo hostnamectl set-hostname Search_Head_Deployer
+sudo hostnamectl set-hostname Search-Head-Deployer
 ```
 To verify, run:
 ```sh
@@ -13,10 +13,21 @@ hostname
 Change on the splunk server.conf
 ```sh
 [general]
-serverName = Search_Head_Deployer
+serverName = Search-Head-Deployer
 pass4SymmKey = $7$26KwSrCIHhUFa3ZN0V/tkHNe1Ze3hhcOgS8GC1LXdH5Z1NKueQ1qig==
 ```
 
+For Linux/macOS (Using sed):
+```sh
+sed -i 's/^serverName = .*/serverName = New_Server_Name/' /opt/splunk/etc/system/local/server.conf
+
+sed -i 's/^serverName = .*/serverName = Indexer_03_Site1/' /opt/splunk/etc/system/local/server.conf
+```
+
+For Windows (PowerShell):
+```sh
+(Get-Content "C:\Program Files\Splunk\etc\system\local\server.conf") -replace 'serverName = .*', 'serverName = New_Server_Name' | Set-Content "C:\Program Files\Splunk\etc\system\local\server.conf"
+```
 ### If it still shows ip-172-31-93-40, try:
 ```sh
 echo "master-node" | sudo tee /etc/hostname

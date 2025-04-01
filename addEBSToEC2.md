@@ -1,5 +1,5 @@
 # ✔️ Steps to Increase EBS Volume of an EC2 Instance
-
+Low volume will put your Indexers on automatic detention
 ## Step 1: Go to EC2 Console
 
 🔹 **Navigate to EC2** → **Volumes**

@@ -3,9 +3,9 @@
 ## 📖 Brief Explanation
 This class covers the installation, configuration, and setup of a Splunk deployment, focusing on best practices for architecting a scalable Splunk environment.
 
----
+## 🔥 Phase 1 (Day 1) – Brief Explanation on Splunk Architect Theory
 
-## 🔥 Phase 1 (Day 1) – Installation
+## 🔥 Phase 2 (Day 2 & 3) – Installation
 
 ### ✅ A. Install the Deployment Server / License Master / Monitoring Console
 - Set up a **Deployment Server** to centrally manage forwarders.
@@ -24,6 +24,19 @@ This class covers the installation, configuration, and setup of a Splunk deploym
 - Install a **Search Head** to enable distributed searching across the indexers.
 - Join the Search Head to the Indexer Cluster for high availability.
 
+
+#### 🖥️🔧 Change Hostname Permanently (Immediately after Installation)
+
+This is very important to identify all instances when querying internal logs, ensuring a proper hostname and correct server name at your **monitoring console** and **cluster manager**. ✨
+
+**You can do it on Splunk Web/UI**
+- Change hostname via **Splunk UI** (Settings → Server Settings).
+- Set a **Global Banner** for easy identification across new instances.
+- Rename accounts to reflect respective **Splunk components**.
+
+For more details on hostname configuration:
+[Change Hostname Permanently (Immediately after Adding New Instances for MultiSite Clustering) 🖥️🔧](hostnamefForSingleSiteClustering.md)
+
 ### ✅ E. Configure the Deployment Server and Forwarders
 - Set up the **Deployment Server** to manage forwarder configurations.
 - Configure forwarders (Windows & Linux) to **phone home** to the Deployment Server for updates.
@@ -34,7 +47,7 @@ This class covers the installation, configuration, and setup of a Splunk deploym
 
 ---
 
-## 🚀 Phase 2 (Day 1) – Configuration & Optimization
+## 🚀 Phase 2 (Day 4 & 5) – Configuration & Optimization
 
 ### ✅ G. Configure Indexer Discovery
 - Enable **Indexer Discovery** to allow forwarders to dynamically locate available indexers.
@@ -52,7 +65,7 @@ This class covers the installation, configuration, and setup of a Splunk deploym
 - Disable the **Web UI** on indexers for security and performance optimization.
 
 ### ✅ K. Install License
-- Apply a **Splunk Enterprise License** to enable full functionality.
+- Apply a **Splunk Enterprise License** on the DS/LM/MC and let all other components be slave to the master to enable full functionality.
 
 ### ✅ L. Configure Monitoring Console
 - Set up **Monitoring Console** to track:
@@ -68,27 +81,71 @@ This class covers the installation, configuration, and setup of a Splunk deploym
 - Onboard **Windows Event Logs** and **Linux Syslogs** into Splunk for real-time analysis.
 
 
-## 🖥️ Final Deployment Overview
+### 🖥️ Final Deployment Overview for Indexer Clustering (Single Site Clustering)
+
 | Component        | Description |
 |-----------------|-------------|
-| 1 x Deployment Server | Manages forwarder configurations |
-| 1 x License Master | Manages Splunk licensing |
-| 1 x Monitoring Console | Tracks cluster health & performance |
+| 1 x Deployment Server / License Master / Monitoring Console | Manages forwarder configurations, licensing, and tracks cluster health & performance |
 | 2 x Forwarders (1 Windows, 1 Linux) | Collects and sends logs to indexers |
 | 1 x Cluster Master | Manages indexer clustering |
 | 3 x Indexers | Stores and replicates data |
 | 1 x Search Head | Provides search functionality |
 
+## 🚀 Phase 4 (Day 6) – Configuration & Optimization
 
-## 🔥 Splunk Architect Class (Multi Site Clustering) using VPC peering in AWS
-- site replication factor
-- site search factor
+### 🔥 Splunk Architect Class (Multi Site Clustering) using VPC peering in AWS
+
+- Site replication factor: 3
+- Site search factor: 2
+- `available_sites = site1,site2`
+- `multisite = true`
+- `site_replication_factor = origin:2,total:3`
+- `site_search_factor = origin:1,total:2`
+
+#### Multi Site Clustering Setup:
+- Add 3 new indexers for `site2`, keeping the old ones for `site1`.
+- Add 2 new search heads: assign two to `site1` and one to `site2`.
+- Add a new instance to serve as the **Search Head Deployer**.
+
+---
+
+### 🖥️🔧 Change Hostname Permanently (Immediately after Adding New Doing the Multi Site Clustering to differentiate the two sites settings eg. indexer-01-site1)
+
+This is very important to identify all instances when querying internal logs, ensuring a proper hostname and correct server name at your **monitoring console** and **cluster manager**. ✨
+
+#### You can do it on Splunk Web/UI
+- Change hostname via **Splunk UI** (Settings → Server Settings).
+- Set a **Global Banner** for easy identification across new instances.
+- Rename accounts to reflect respective **Splunk components**.
+
+For more details on hostname configuration:
+[Change Hostname Permanently (Immediately after Adding New Instances for MultiSite Clustering) 🖥️🔧](hostnamefForSingleSiteClustering.md)
+
+## 🚀 Phase 5 (Day 7) – Configuration & Optimization
+### 🔥 Splunk Architect Class (Search Head Clustering)
+
+- Configure **Search Head Deployer**.
+- Initialize the **3 Search Head Cluster Members**.
+- Install **Windows** and **Linux** add-ons on the Search Head Deployer and push them to Search Head members.
+
+
+### 🖥️ Final Deployment Overview for Multi Site Site Clustering
+
+| Component        | Description |
+|-----------------|-------------|
+| 1 x Deployment Server / License Master / Monitoring Console | Manages forwarder configurations, licensing, and cluster health |
+| 2 x Forwarders (1 Windows, 1 Linux) | Collects and sends logs to indexers |
+| 1 x Cluster Master | Manages indexer clustering |
+| 6 x Indexers (3 for site1, 3 for site2) | Stores and replicates data |
+| 3 x Search Heads (2 for site1, 1 for site2) | Provides search functionality |
+| 1 x Search Head Deployer | Manages Search Head Cluster configurations |
+
+## 🚀 Phase 6 (Day 8) – Configuration & Optimization
+### 🔥Where and How to get logs to splunk
   
-## 🔥Splunk with Ansible for Configuration Automation
+### 🔥 Syslog
 
-## 🔥Splunk Architect Class (Search Head Clustering)
-
-## 🔥 Syslog
+<!-- ## 🔥Splunk with Ansible for Configuration Automation
 
 ## 🔥 Data Filtering using Props.conf and transform.conf
 
@@ -185,4 +242,4 @@ Let me know how you'd like to proceed! 😊
 
 
 
-
+ -->
