@@ -1,4 +1,4 @@
-# 🏗️ Splunk Architect Class (Indexer Clustering or Single Site Clustering)
+# 🏗️ Splunk Architect Class (Indexer Clustering or Single Site Clustering, Multi Site Clustering and Search Head Clustering)
 
 ## 📖 Brief Explanation
 This class covers the installation, configuration, and setup of a Splunk deployment, focusing on best practices for architecting a scalable Splunk environment.
@@ -144,18 +144,6 @@ For more details on hostname configuration:
 ### 🔥Where and How to get logs to splunk
   
 ### 🔥 Syslog
-
-```sh
-cat << EOF >> ~/.zprofile
-# Add Visual Studio Code (code)
-export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-EOF
-```
-
->[!NOTE]
->If you still have the old code alias in your .bash_profile (or equivalent) from an early VS Code version, remove it and replace it by running the Shell Command: Install 'code' command in PATH command.
-
-[Download and install Visual Studio Code](https://code.visualstudio.com/docs/setup/mac#_install-vs-code-on-macos)
 
 <!-- ## 🔥Splunk with Ansible for Configuration Automation
 

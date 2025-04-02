@@ -21,7 +21,7 @@ Rename-Computer -NewName "windows-server" -Force -Restart
 hostname
 ```
 
-**Change Hostname in Splunk server.conf 🔧📝**
+**Change serverName in Splunk server.conf 🔧📝**
 - Make sure the serverName matches the hostname you’ve set previously.
 
 ```ini
@@ -41,18 +41,20 @@ sed -i 's/^serverName = .*/serverName = New_Server_Name 🖥️/' /opt/splunk/et
 sed -i 's/^serverName = .*/serverName = Indexer_03_Site1 🚀/' /opt/splunk/etc/system/local/server.conf
 ```
 
-**For Windows (PowerShell) 💻🖥️**
-- Change the serverName for your Splunk Universal Forwarder:
-
 ```sh
 sed -i 's/^serverName = .*/serverName = New_Server_Name 🖥️/' /opt/splunkforwarder/etc/system/local/server.conf
 ```
+
+**For Windows (PowerShell) 💻🖥️**
+- Change the serverName for your Splunk Universal Forwarder:
+```sh
+(Get-Content "C:\Program Files\SplunkUniversalForwarder\etc\system\local\server.conf") -replace 'serverName = .*', 'serverName = New_Server_Name 🏢' | Set-Content "C:\Program Files\SplunkUniversalForwarder\etc\system\local\server.conf"
+```
+
 
 **For Windows (PowerShell) 💻:**
 - Check the correct path for your Splunk Universal Forwarder; the same method applies if you have installed the full enterprise on Windows as well:
 
 ```powershell
 (Get-Content "C:\Program Files\Splunk\etc\system\local\server.conf") -replace 'serverName = .*', 'serverName = New_Server_Name 🏢' | Set-Content "C:\Program Files\Splunk\etc\system\local\server.conf"
-
-(Get-Content "C:\Program Files\SplunkUniversalForwarder\etc\system\local\server.conf") -replace 'serverName = .*', 'serverName = New_Server_Name 🏢' | Set-Content "C:\Program Files\SplunkUniversalForwarder\etc\system\local\server.conf"
 ```
