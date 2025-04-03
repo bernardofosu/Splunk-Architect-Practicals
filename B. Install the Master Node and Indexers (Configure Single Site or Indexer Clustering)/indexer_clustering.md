@@ -1,6 +1,5 @@
-
 ## Splunk Enterprise Deployment Practical Lab
-![image](./images/splunk_architect_typology.jpg)
+
 This topology diagram shows the structure of a Splunk Enterprise Deployment Practical Lab. Here’s how each component fits into the deployment:
 
 ### Combo Server
@@ -27,6 +26,13 @@ This topology diagram shows the structure of a Splunk Enterprise Deployment Prac
 
 This topology follows Splunk best practices for scalability, search performance, and data redundancy
 
+## Configure Manager Node Configuration File
+### The are three ways to enable the manager node
+The following example shows the basic settings that you typically configure when enabling a manager node. 
+
+[Read More on Managing Indexers and Clusters of Indexers](https://docs.splunk.com/Documentation/Splunk/9.4.0/Indexer/Enableclustersindetail)
+
+The configuration attributes for 1 and 2 correspond to fields on the Enable clustering page of Splunk Web.
 
 #### 1. Configure using server.conf configuration file
 Make sure this configuration is saved in `server.conf`, located at `$SPLUNK_HOME/etc/system/local/server.conf`. Restart the Splunk service to apply the changes.
@@ -97,7 +103,7 @@ To configure peer nodes in Splunk, you can either edit the server.conf file or u
 Manual Configuration (Editing server.conf)
 
 To enable a peer node manually, add the following to server.conf:
-```sh
+```ini
 [replication_port://9887]
 
 [clustering]

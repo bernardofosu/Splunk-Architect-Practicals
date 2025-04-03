@@ -30,20 +30,7 @@ indexAndForward = false
 [tcpout:my_search_peers]
 server = 172.31.83.124:9997,172.31.91.156:9997,172.31.80.100:9997
 ```
-```ini
-[indexAndForward]
-index = false           # ❌ Don't index locally (forward-only)
 
-[tcpout]
-defaultGroup = my_search_peers
-forwardedindex.filter.disable = true   # ✅ Forward ALL indexes (including _internal, _audit)
-indexAndForward = false                # ✅ Confirm forward-only mode
-
-[tcpout:my_search_peers]
-server = 172.31.83.124:9997,172.31.91.156:9997,172.31.80.100:9997
-autoLBFrequency = 30                # 🟣 Change server every 30s (default is 30)
-forceTimebasedAutoLB = true         # 🟣 Even under low load, still rotate
-```
 
 ### ✅ What does this do?
 | Setting | Meaning |

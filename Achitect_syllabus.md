@@ -5,22 +5,26 @@ This class covers the installation, configuration, and setup of a Splunk deploym
 
 ## 🔥 Phase 1 (Day 1) – Brief Explanation on Splunk Architect Theory
 
-## 🔥 Phase 2 (Day 2 & 3) – Installation
+## 🔧 Phase 2 (Day 2 & 3) – Installation
 
-### ✅ A. Install the Deployment Server / License Master / Monitoring Console
+### 🖥️ Install [Splunk Enterprise Using Bash Script](https://github.com/bernardofosu/Install_Splunk_Using_AWS_User_Data/blob/main/user_data.sh)
+
+### 🚀 A. Install the Deployment Server / License Master / Monitoring Console
 - Set up a **Deployment Server** to centrally manage forwarders.
 - Configure a **License Master** to manage Splunk licensing.
 - Install the **Monitoring Console** to track the performance of Splunk components.
 
-### ✅ B. Install the Forwarders
-- Deploy a **Universal Forwarder on a Windows machine** to collect and send data to indexers.
-- Deploy a **Universal Forwarder on a Linux machine** to collect system logs and application logs.
+### 🔄 B. Install the Forwarders 📤
+#### 🖥️ Install [Splunk Universal Forwarder on Linux Using Bash Script](https://github.com/bernardofosu/Install_Splunk_Using_AWS_User_Data/blob/main/user_data_UFD_awslinux.sh)
+- Deploy a **Universal Forwarder on a Windows machine** to collect and send data to indexers 📄.
+- Deploy a **Universal Forwarder on a 🐧Linux machine** to collect system logs 🔐 and application logs.
 
-### ✅ C. Install the Master Node and Indexers
+### 🏢 C. Install the Master Node and Indexers (Configure Single Site or Indexer Clustering)
+#### 🔗 [Configure Single Site or Indexer Clustering](./B.%20Install%20the%20Master%20Node%20and%20Indexers%20(Configure%20Single%20Site%20or%20Indexer%20Clustering)/indexer_clustering.md)
 - Install and configure the **Cluster Master** to manage the indexer cluster.
 - Set up **three Indexers** as peer nodes for storing and replicating data.
 
-### ✅ D. Install the Search Head
+### 🔍 D. Install the Search Head
 - Install a **Search Head** to enable distributed searching across the indexers.
 - Join the Search Head to the Indexer Cluster for high availability.
 
@@ -35,13 +39,15 @@ This is very important to identify all instances when querying internal logs, en
 - Rename accounts to reflect respective **Splunk components**.
 
 For more details on hostname configuration:
-[Change Hostname Permanently (Immediately after Adding New Instances for MultiSite Clustering) 🖥️🔧](hostnamefForSingleSiteClustering.md)
 
-### ✅ E. Configure the Deployment Server and Forwarders
+[🐧🖥️ Change Hostname Permanently (Immediately after Adding New Instances for MultiSite Clustering)](./C.%20Change%20Hostname%20Permanently%20(Immediately%20after%20Installation)/hostnamefForSingleSiteClustering.md)
+
+### 🚀 E. Configure the Deployment Server and Forwarders
+
 - Set up the **Deployment Server** to manage forwarder configurations.
 - Configure forwarders (Windows & Linux) to **phone home** to the Deployment Server for updates.
 
-### ✅ F. Configure Server Classes
+### 🏷️ F. Configure Server Classes
 - Create **Server Classes** to group forwarders based on data sources.
 - Apply appropriate configurations and apps automatically to different classes.
 
@@ -49,34 +55,36 @@ For more details on hostname configuration:
 
 ## 🚀 Phase 2 (Day 4 & 5) – Configuration & Optimization
 
-### ✅ G. Configure Indexer Discovery
+### 📦 G. Configure Indexer Discovery
 - Enable **Indexer Discovery** to allow forwarders to dynamically locate available indexers.
 
-### ✅ H. Enable Listeners on Search Peers
+### 🔢 H. Enable Listeners on Search Peers
 - Open the required ports on **all three indexers** to receive data from forwarders.
 
-### ✅ I. Create Indexes on the Manager Node
+### 🎯 I. Create Indexes on the Manager Node
 - Define at least **three indexes** in `indexes.conf` and deploy them to indexers:
   - `windows_logs`
   - `linux_logs`
   - `application_logs`
 
-### ✅ J. Disable Search Peers UI
+### 🧭 J. Disable Search Peers UI
 - Disable the **Web UI** on indexers for security and performance optimization.
 
-### ✅ K. Install License
+### 🔑 K. Install License
 - Apply a **Splunk Enterprise License** on the DS/LM/MC and let all other components be slave to the master to enable full functionality.
 
-### ✅ L. Configure Monitoring Console
+### 🖥️ L. Configure Monitoring Console
 - Set up **Monitoring Console** to track:
   - Cluster health
   - Indexing performance
   - Search efficiency
 
-### ✅ M. Forward Internal Logs to Indexers
+### 🔄 M. Forward Internal Logs to Indexers
 - Configure Splunk to send **internal logs** (e.g., `splunkd.log`) to indexers for centralized monitoring.
 
-### ✅ N. Install Linux & Windows Apps
+### 🖥️ 🐧 N. Install Linux & Windows Apps
+#### 🔗 [Install Linux & Windows Apps](./M.%20Install%20Linux%20&%20Windows%20Apps/L.%20Forward%20OS%20Internal%20Logs%20to%20Indexers%20Using%20Forwarders/forwardInternalLogsToIndexersOnForwarders.md)
+
 - Download and install **Splunk Add-ons for Windows and Linux** via Splunk Web.
 - Onboard **Windows Event Logs** and **Linux Syslogs** into Splunk for real-time analysis.
 
@@ -119,7 +127,7 @@ This is very important to identify all instances when querying internal logs, en
 - Rename accounts to reflect respective **Splunk components**.
 
 For more details on hostname configuration:
-[Change Hostname Permanently (Immediately after Adding New Instances for MultiSite Clustering) 🖥️🔧](hostnamefForSingleSiteClustering.md)
+[Change Hostname Permanently (Immediately after Adding New Instances for MultiSite Clustering) 🖥️🔧](./C.%20Change%20Hostname%20Permanently%20(Immediately%20after%20Installation)/hostnamefForSingleSiteClustering.md)
 
 ## 🚀 Phase 5 (Day 7) – Configuration & Optimization
 ### 🔥 Splunk Architect Class (Search Head Clustering)
@@ -143,7 +151,7 @@ For more details on hostname configuration:
 ## 🚀 Phase 6 (Day 8) – Configuration & Optimization
 ### 🔥Where and How to get logs to splunk
   
-### 🔥 Syslog
+### 🔥 Configure Syslog
 
 <!-- ## 🔥Splunk with Ansible for Configuration Automation
 

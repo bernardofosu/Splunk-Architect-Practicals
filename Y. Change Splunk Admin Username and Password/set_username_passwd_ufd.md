@@ -15,10 +15,11 @@ Now, edit the file:
 sudo nano /opt/splunkforwarder/etc/system/local/user-seed.conf
 
 Add the following lines:
-
+```ini
 [user_info]
 USERNAME = admin
 PASSWORD = YourSecurePassword
+```
 
 Save and exit (Ctrl+X → Y → Enter).
 2️⃣ Restart the Forwarder
