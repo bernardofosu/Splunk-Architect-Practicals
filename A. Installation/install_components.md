@@ -1,6 +1,6 @@
 ## 🔥 Phase 2 (Day 2 & 3) – Installation
 >[!NOTE] 
-> [Use the intallation Secript]()
+> [Use the intallation Secript](https://github.com/bernardofosu/Install_Splunk_Using_AWS_User_Data/blob/main/user_data.sh)
 
 ### ✅ A. Install the Deployment Server / License Master / Monitoring Console
 - Set up a **Deployment Server** to centrally manage forwarders.

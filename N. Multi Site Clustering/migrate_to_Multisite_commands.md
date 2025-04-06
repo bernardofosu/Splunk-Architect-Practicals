@@ -21,6 +21,7 @@ Migrating from a single-site cluster to a multisite cluster involves several ste
 ### ✅ **1. Configure the Manager Node for Multisite**
 Run the following command on the manager node to enable multisite mode:
 
+Splunk Decide
 ```bash
 splunk edit cluster-config -mode manager -multisite true \
 -available_sites site1,site2 \
@@ -28,10 +29,19 @@ splunk edit cluster-config -mode manager -multisite true \
 -site_replication_factor origin:2,total:3 \
 -site_search_factor origin:1,total:2
 ```
+You decide
+```bash
+./splunk edit cluster-config -mode manager -multisite true -available_sites "site1,site2" -site site1 \
+-site_replication_factor "origin:2,site1:1,total:3" \
+-site_search_factor "origin:1,site1:1,total:2"
+```
 With the Secret Key
 ```sh
 splunk edit cluster-config -mode manager -multisite true -available_sites site1,site2 -site site1 -site_replication_factor origin:2,total:3 -site_search_factor origin:1,total:2 -secret your_key
 ```
+>[!NOTE] 
+>If the first cluster, you added the pass4SymmKey, you should add -secret your_key to the command unless you will get secret error `Could not contact manager. Check that the manager is up, the manager_uri=https://172.31.1.193:8089 and secret are specified correctly.`
+
 [Read More](https://docs.splunk.com/Documentation/Splunk/9.4.0/Indexer/MultisiteCLI)
 ```sh
 splunk restart
@@ -295,3 +305,86 @@ pass4SymmKey = $7$MDGnXM/sA3l6CPsTx/4HdI3NeepFn5shh6beQqjvRsWtsV1eNpNyvA==
 [license]
 manager_uri = self
 ```
+
+
+# 🟠 Splunk Multisite Cluster Configuration
+
+## 📌 Command
+```bash
+./splunk edit cluster-config -mode manager -multisite true -available_sites "site1,site2" -site site1 \
+-site_replication_factor "origin:2,site1:1,total:3" \
+-site_search_factor "origin:1,site1:1,total:2"
+```
+
+## 🔍 Explanation
+This command configures a **multisite indexer cluster** with a **manager node**.
+
+### 🔧 Options Breakdown
+- **`./splunk edit cluster-config`** → Modifies the cluster configuration.
+- **`-mode manager`** → Sets this node as the **cluster manager**.
+- **`-multisite true`** → Enables **multisite clustering**.
+- **`-available_sites "site1,site2"`** → Defines **two sites** (`site1` and `site2`).
+- **`-site site1`** → Declares that **this node belongs to site1**.
+
+### 📂 Replication & Search Factors
+#### 📑 **Replication Factor (`-site_replication_factor`)**
+- **`origin:2`** → Store **2 copies** of data at the **origin site**.
+- **`site1:1`** → Store **1 copy** at **site1**.
+- **`total:3`** → The cluster **keeps 3 copies in total**.
+
+#### 🔍 **Search Factor (`-site_search_factor`)**
+- **`origin:1`** → The **origin site** must have **1 searchable copy**.
+- **`site1:1`** → **Site1 must have 1 searchable copy**.
+- **`total:2`** → The cluster **must have 2 searchable copies**.
+
+## 🎯 Purpose
+This command **configures a multisite indexer cluster** in Splunk, ensuring **data replication** and **search availability** across multiple locations (`site1` and `site2`).
+
+✅ This setup enhances **high availability** and **disaster recovery** in distributed Splunk environments.
+
+# 🌐 Splunk Multisite Cluster Configuration Differences
+
+## 📌 Overview
+This document compares two different ways of configuring a **Splunk multisite cluster manager** and explains their key differences.
+
+---
+
+## 🛠️ Command 1 (With Quotes)  
+```bash
+./splunk edit cluster-config -mode manager -multisite true \
+-available_sites "site1,site2" \
+-site site1 \
+-site_replication_factor "origin:2,site1:1,total:3" \
+-site_search_factor "origin:1,site1:1,total:2"
+```
+✔ **Explicit argument grouping** with **quotes**  
+✔ **Forces site1 to store at least 1 copy**  
+
+---
+
+## ⚡ Command 2 (Without Quotes)  
+```bash
+splunk edit cluster-config -mode manager -multisite true \
+-available_sites site1,site2 \
+-site site1 \
+-site_replication_factor origin:2,total:3 \
+-site_search_factor origin:1,total:2
+```
+✔ **More concise**  
+❌ **Does not explicitly force site1 to store data**  
+
+---
+
+## 🔍 Key Differences
+
+| Feature                     | Command 1 (With Quotes) | Command 2 (Without Quotes) |
+|-----------------------------|------------------------|----------------------------|
+| **Quotes Used**             | ✅ Yes                | ❌ No                     |
+| **Explicit Data Placement** | ✅ Yes (`site1:1`)    | ❌ No (default behavior)   |
+| **Potential Parsing Issues**| ❌ Less likely        | ✅ Possible if unquoted   |
+
+**✅ Recommendation:** Use **Command 1** if you need precise control over **replication and search factors**. Otherwise, **Command 2** is a simpler alternative.
+
+---
+🚀 **Choose the right configuration based on your needs!**
+

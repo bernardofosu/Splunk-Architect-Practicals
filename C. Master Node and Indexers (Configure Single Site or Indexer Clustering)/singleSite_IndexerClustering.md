@@ -64,10 +64,25 @@ pass4SymmKey = changeme
 ```
 
 ### ✅ H. Enable Listener on Indexers - `inputs.conf`
+
+## 🎯 Step 3: Enable Listener on Manager Node for Indexers
+
+On each **indexer**, enable receiving by modifying `inputs.conf`:
+```bash
+mkdir -p /opt/splunk/etc/manager-apps/atlgsdach_all_indexers_base/local
+cd /opt/splunk/etc/manager-apps/atlgsdach_all_indexers_base/local
+vi inputs.conf
+```
 ```ini
 [splunktcp://9997]
 disabled = 0
 ```
+
+```bash
+./splunk apply cluster-bundle
+```
+Check if Port 9997 is Enabled on the Indexers
+
 
 ### ✅ I. Create Indexes - `indexes.conf`
 ```ini

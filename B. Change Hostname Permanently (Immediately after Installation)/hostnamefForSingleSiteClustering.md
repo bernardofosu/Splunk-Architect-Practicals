@@ -6,7 +6,7 @@ This is very important to identify all the instances in the search when you quer
 
 **Linux 🐧:**
 ```sh
-sudo hostnamectl set-hostname indexer-01
+sudo hostnamectl set-hostname splunk-UFD-linux
 ```
 
 **For Windows 💻:**

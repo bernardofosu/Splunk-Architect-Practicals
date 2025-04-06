@@ -77,6 +77,10 @@ vi inputs.conf
 [splunktcp://9997]
 disabled = 0
 ```
+
+```bash
+./splunk apply cluster-bundle
+```
 Check if Port 9997 is Enabled on the Indexers
 
 Run the following on each indexer:

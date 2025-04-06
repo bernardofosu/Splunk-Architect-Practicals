@@ -7,29 +7,29 @@ This class covers the installation, configuration, and setup of a Splunk deploym
 
 ## 🔧 Phase 2 (Day 2 & 3) – Installation
 
-### 🖥️ Install [Splunk Enterprise Using Bash Script](https://github.com/bernardofosu/Install_Splunk_Using_AWS_User_Data/blob/main/user_data.sh)
+### 🖥️ A. Install All the Splunk Components for the Single SIte or Indexer Clustering[Splunk Enterprise Using Bash Script](https://github.com/bernardofosu/Install_Splunk_Using_AWS_User_Data/blob/main/user_data.sh)
 
-### 🚀 A. Install the Deployment Server / License Master / Monitoring Console
+#### 🔄  Comfigure the Forwarders 📤
+🖥️ Install [Splunk Universal Forwarder on Linux Using Bash Script](https://github.com/bernardofosu/Install_Splunk_Using_AWS_User_Data/blob/main/user_data_UFD_awslinux.sh)
+- Deploy a **Universal Forwarder on a Windows machine** to collect and send data to indexers 📄.
+- Deploy a **Universal Forwarder on a 🐧Linux machine** to collect system logs 🔐 and application logs.
+
+#### 🖥️ Final Deployment Overview for Indexer Clustering Components (Single Site Clustering)
+
+| Component        | Description |
+|-----------------|-------------|
+| 1 x Deployment Server / License Master / Monitoring Console | Manages forwarder configurations, licensing, and tracks cluster health & performance |
+| 2 x Forwarders (1 Windows, 1 Linux) | Collects and sends logs to indexers |
+| 1 x Cluster Master | Manages indexer clustering |
+| 3 x Indexers | Stores and replicates data |
+| 1 x Search Head | Provides search functionality |
+
+### 🚀 A. Configure the Deployment Server / License Master / Monitoring Console
 - Set up a **Deployment Server** to centrally manage forwarders.
 - Configure a **License Master** to manage Splunk licensing.
 - Install the **Monitoring Console** to track the performance of Splunk components.
 
-### 🔄 B. Install the Forwarders 📤
-#### 🖥️ Install [Splunk Universal Forwarder on Linux Using Bash Script](https://github.com/bernardofosu/Install_Splunk_Using_AWS_User_Data/blob/main/user_data_UFD_awslinux.sh)
-- Deploy a **Universal Forwarder on a Windows machine** to collect and send data to indexers 📄.
-- Deploy a **Universal Forwarder on a 🐧Linux machine** to collect system logs 🔐 and application logs.
-
-### 🏢 C. Install the Master Node and Indexers (Configure Single Site or Indexer Clustering)
-#### 🔗 [Configure Single Site or Indexer Clustering](./B.%20Install%20the%20Master%20Node%20and%20Indexers%20(Configure%20Single%20Site%20or%20Indexer%20Clustering)/indexer_clustering.md)
-- Install and configure the **Cluster Master** to manage the indexer cluster.
-- Set up **three Indexers** as peer nodes for storing and replicating data.
-
-### 🔍 D. Install the Search Head
-- Install a **Search Head** to enable distributed searching across the indexers.
-- Join the Search Head to the Indexer Cluster for high availability.
-
-
-#### 🖥️🔧 Change Hostname Permanently (Immediately after Installation)
+### B. 🖥️🔧 Change Hostname Permanently (Immediately after Installation)
 
 This is very important to identify all instances when querying internal logs, ensuring a proper hostname and correct server name at your **monitoring console** and **cluster manager**. ✨
 
@@ -41,6 +41,17 @@ This is very important to identify all instances when querying internal logs, en
 For more details on hostname configuration:
 
 [🐧🖥️ Change Hostname Permanently (Immediately after Adding New Instances for MultiSite Clustering)](./C.%20Change%20Hostname%20Permanently%20(Immediately%20after%20Installation)/hostnamefForSingleSiteClustering.md)
+
+
+### 🏢 C. Configure the Master Node and Indexers (Configure Single Site or Indexer Clustering)
+#### 🔗 [Configure Single Site or Indexer Clustering](./B.%20Install%20the%20Master%20Node%20and%20Indexers%20(Configure%20Single%20Site%20or%20Indexer%20Clustering)/indexer_clustering.md)
+- Install and configure the **Cluster Master** to manage the indexer cluster.
+- Set up **three Indexers** as peer nodes for storing and replicating data.
+  
+
+### 🔍 D. Configure the Search Head for Distributed Searching ()
+- Install a **Search Head** to enable distributed searching across the indexers through manually adding the Peers on the Search Head
+- Join the Search Head to the Indexer Cluster for high availability.
 
 ### 🚀 E. Configure the Deployment Server and Forwarders
 
@@ -88,16 +99,6 @@ For more details on hostname configuration:
 - Download and install **Splunk Add-ons for Windows and Linux** via Splunk Web.
 - Onboard **Windows Event Logs** and **Linux Syslogs** into Splunk for real-time analysis.
 
-
-### 🖥️ Final Deployment Overview for Indexer Clustering (Single Site Clustering)
-
-| Component        | Description |
-|-----------------|-------------|
-| 1 x Deployment Server / License Master / Monitoring Console | Manages forwarder configurations, licensing, and tracks cluster health & performance |
-| 2 x Forwarders (1 Windows, 1 Linux) | Collects and sends logs to indexers |
-| 1 x Cluster Master | Manages indexer clustering |
-| 3 x Indexers | Stores and replicates data |
-| 1 x Search Head | Provides search functionality |
 
 ## 🚀 Phase 4 (Day 6) – Configuration & Optimization
 
