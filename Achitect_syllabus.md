@@ -84,14 +84,14 @@ For more details on hostname configuration:
 ### 🔑 K. Install License
 - Apply a **Splunk Enterprise License** on the DS/LM/MC and let all other components be slave to the master to enable full functionality.
 
-### 🖥️ L. Configure Monitoring Console
+### 🔄 L. Forward Internal Logs to Indexers
+- Configure Splunk to send **internal logs** (e.g., `splunkd.log`) to indexers for centralized monitoring.
+
+### 🖥️ M. Configure Monitoring Console
 - Set up **Monitoring Console** to track:
   - Cluster health
   - Indexing performance
   - Search efficiency
-
-### 🔄 M. Forward Internal Logs to Indexers
-- Configure Splunk to send **internal logs** (e.g., `splunkd.log`) to indexers for centralized monitoring.
 
 ### 🖥️ 🐧 N. Install Linux & Windows Apps
 #### 🔗 [Install Linux & Windows Apps](./M.%20Install%20Linux%20&%20Windows%20Apps/L.%20Forward%20OS%20Internal%20Logs%20to%20Indexers%20Using%20Forwarders/forwardInternalLogsToIndexersOnForwarders.md)

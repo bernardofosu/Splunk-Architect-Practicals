@@ -41,18 +41,12 @@ A **Search Head Cluster** consists of multiple search heads that share configura
 ```ini
 [shclustering]
 pass4SymmKey = yoursecuritykey
-shcluster_label = shcluster1
+shcluster_label = shcluster1 # **Set the cluster label**
 ```
 #### You cannot repeat the same stanza header twice.
 - Every stanza should be opened once and contain all relevant keys under it.
 - If you define [shclustering] twice, only the second one will be used, the first will be ignored.
 
-🔹 **Set the cluster label**:
-
-```ini
-[shclustering]
-shcluster_label = shcluster1
-```
 
 🔹 Restart the deployer to apply changes.
 
@@ -95,6 +89,8 @@ splunk init shcluster-config -auth admin:splunk123 \
     -secret 20260918 \
     -shcluster_label shcluster1
 ```
+- **-mgmt_uri <URI>:<management_port>:** each search Head memer priavte IP
+- **-conf_deploy_fetch_url <URL>:<management_port>:** private Ip of the deployer
 
 Then restart Splunk:
 
@@ -156,10 +152,6 @@ For KV Store status:
 ```bash
 splunk show kvstore-status -auth <username>:<password>
 ```
-
-
-
-
 
 ## ⚙️ Explanation of Steps to Configure a Search Head Cluster Using CLI for the above commands
 

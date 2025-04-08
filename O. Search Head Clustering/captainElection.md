@@ -6,7 +6,7 @@ Since you ran:
 ./splunk bootstrap shcluster-captain -servers_list "https://172.31.24.196:8089,https://172.31.28.177:8089,https://172.31.86.130:8089" -auth admin:splunk123
 ```
 
-👉 The node you executed this command on becomes the Captain immediately after successful bootstrap.
+👉 The node you executed this command on becomes the Captain immediately after successful bootstrap but with time the captain
 
 💡 **Why?**
 
