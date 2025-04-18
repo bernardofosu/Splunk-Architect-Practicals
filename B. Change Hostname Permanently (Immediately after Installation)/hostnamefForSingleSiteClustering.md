@@ -6,7 +6,7 @@ This is very important to identify all the instances in the search when you quer
 
 **Linux 🐧:**
 ```sh
-sudo hostnamectl set-hostname splunk-UFD-linux
+sudo hostnamectl set-hostname Search-Head-02
 ```
 
 **For Windows 💻:**
@@ -33,12 +33,12 @@ pass4SymmKey = $7$26KwSrCIHhUFa3ZN0V/tkHNe1Ze3hhcOgS8GC1LXdH5Z1NKueQ1qig==
 **For Linux/macOS (Using sed) 🐧💡**
 - This command updates the serverName without directly accessing server.conf.
 ```sh
-sed -i 's/^serverName = .*/serverName = New_Server_Name 🖥️/' /opt/splunk/etc/system/local/server.conf
+sed -i 's/^serverName = .*/serverName = New_New_Name/' /opt/splunk/etc/system/local/server.conf
 ```
 
 **For example:**
 ```sh
-sed -i 's/^serverName = .*/serverName = Indexer_03_Site1 🚀/' /opt/splunk/etc/system/local/server.conf
+sed -i 's/^serverName = .*/serverName = Search-Head-03/' /opt/splunk/etc/system/local/server.conf
 ```
 
 ```sh

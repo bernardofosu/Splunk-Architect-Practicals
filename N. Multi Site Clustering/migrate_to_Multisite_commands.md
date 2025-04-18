@@ -97,8 +97,22 @@ Prevent Data Movement:
 On each peer node, run: or we can update the server.conf
 
 ```bash
-splunk edit cluster-config -site site1
+./splunk edit cluster-config -site site1
 splunk restart
+```
+```sh
+This command [POST /services/cluster/config/config] needs splunkd to be up, but splunkd is unreachable.
+```
+
+#### ✅ Fixes and Workaround
+Manually add the site under [general]
+
+Since splunkd is failing, just do it manually:
+```ini
+[general]
+serverName = Indexer_03_Site2
+pass4SymmKey = $7$wUnEhJQot2m7m4dzkK8O1uhSwVREtx3kuRZVi7JXcpX3ClSvSq/IRQ==
+site = site1
 ```
 
 🔎 **Explanation:**

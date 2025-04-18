@@ -140,7 +140,7 @@ splunk show shcluster-status -auth admin:changeme
 ./splunk show shcluster-status -auth admin:splunk123
 ```
 ```sh
-ubuntu@search-head-02-site1:/opt/splunk/bin$ ./splunk show shcluster-status -auth admin:20260918
+ubuntu@search-head-02-site1:/opt/splunk/bin$ ./splunk show shcluster-status -auth admin:splunk123
 Please run 'splunk ftr' as boot-start user
 ```
 ```sh
