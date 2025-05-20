@@ -7,6 +7,8 @@ This is very important to identify all the instances in the search when you quer
 **Linux 🐧:**
 ```sh
 sudo hostnamectl set-hostname Search-Head-02
+
+/bin/bash # restart shell to take effects
 ```
 
 **For Windows 💻:**
