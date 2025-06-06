@@ -1,0 +1,1 @@
+https://docs.splunk.com/Documentation/Splunk/9.4.2/RESTREF/RESTcluster#cluster.2Fmanager.2Fcontrol.2Fdefault.2Fcancel_bundle_push
