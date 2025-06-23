@@ -60,7 +60,13 @@ splunk set licenser-lm https://<license-master>:8089 -auth admin:password
 splunk restart
 ```
 
----
+
+⚙️ Configuration Example on Each Component
+```bash
+splunk edit licenser-localslave -master_uri https://<license-master>:8089 -auth admin:changeme
+```
+
+✅ After this, all components will register with the License Master and operate in compliance.
 
 ## ✅ Step 4: Verify License Master-Slave Connection
 On the **License Master**:
