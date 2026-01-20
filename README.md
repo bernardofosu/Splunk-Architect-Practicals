@@ -143,8 +143,6 @@ These notes document **hands-on Splunk architecture implementations** covering *
 ---
 
 ## 🖼️ Visual Proof (Screenshots)
-
-```md
 ![Overview of Products](1.%20Overview%20of%20Products.png)
 ![Product Availability](2.%20Product%20Availability%20Across%20Logs.png)
 ![Pricing Analysis](3.%20Pricing%20Analysis.png)
@@ -154,7 +152,6 @@ These notes document **hands-on Splunk architecture implementations** covering *
 ![Search Head](search%20head.jpg)
 ![Multisite Architecture](Multisite%20Architectural%20Setup.png)
 ![All Components](all.jpg)
-```
 
 ---
 
